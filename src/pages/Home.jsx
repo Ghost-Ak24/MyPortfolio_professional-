@@ -1,0 +1,8 @@
+import {useEffect,useState} from 'react'
+import {profile} from '../data/profile'
+const menu=[['00','START','start'],['01','ABOUT ME','about'],['02','PROJECTS','projects'],['03','TECH ARSENAL','tech'],['04','COMBAT RECORD','record'],['05','SOCIAL','social']]
+export default function Home({navigate}){
+ const [sel,setSel]=useState(0)
+ useEffect(()=>{const f=e=>{if(e.key==='ArrowDown')setSel(v=>(v+1)%menu.length);if(e.key==='ArrowUp')setSel(v=>(v-1+menu.length)%menu.length);if(e.key==='Enter')navigate(menu[sel][2])};window.addEventListener('keydown',f);return()=>window.removeEventListener('keydown',f)},[sel,navigate])
+ return <main className="home-page"><div className="home-watermark">PERSONNEL<br/>DATABASE<br/><span>001 // INDIA</span></div><div className="home-center"><div className="eyebrow"><i/>PERSONNEL DATABASE // ACCESS GRANTED<i/></div><h1>WELCOME TO<span>MY PORTFOLIO</span></h1><p className="home-intro">Hi, I’m <strong>{profile.name}</strong> — a Computer Science student building software, solving problems and learning one system at a time.</p><div className="mission-menu"><div className="menu-title"><span>// MAIN MENU</span><span>SELECT OPTION</span></div>{menu.map((m,i)=><button key={m[1]} className={'menu-item '+(i===sel?'active':'')} onMouseEnter={()=>setSel(i)} onClick={()=>navigate(m[2])}><small>{m[0]}</small><span>{i===sel?'▶':''}</span><b>{m[1]}</b><i/><em>{i===sel?'READY':''}</em></button>)}<div className="menu-help">↑ ↓ NAVIGATE <span>ENTER SELECT</span></div></div></div><footer className="home-footer"><span>MISSION STATUS: <b>ACTIVE</b></span><div><i/></div><span>BUILD 02.0 // 2026</span></footer></main>
+}
